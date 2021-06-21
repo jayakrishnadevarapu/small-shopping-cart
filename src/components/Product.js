@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-export default function Product({ product, onAdd }) {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {addProduct} from "../redux-reducers/cart/actions"
+ function Product({ product, addProduct }) {
   // const { product, onAdd } = props;
 
   let [size, setSize] = useState([]);
@@ -63,7 +66,7 @@ export default function Product({ product, onAdd }) {
         <button
           className="ui button"
           disabled={enableBtn}
-          onClick={() => onAdd(product)}
+          onClick={() => addProduct(product)}
         >
           Add to cart
         </button>
@@ -71,3 +74,12 @@ export default function Product({ product, onAdd }) {
     </div>
   );
 }
+Product.propTypes = {
+  product: PropTypes.object.isRequired,
+  addProduct: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { addProduct }
+)(Product);
